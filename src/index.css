@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --color-elephant-blue: #4A90E2;
+  --color-elephant-orange: #F5A623;
+  --color-elephant-green: #50E3C2;
+  --color-elephant-dark: #2C3E50;
+  --color-surface: #EDF2F8;
+  --color-surface-light: #F5F8FC;
+
+  --font-display: 'Noto Sans SC', system-ui, sans-serif;
+  --font-body: 'Noto Sans SC', system-ui, sans-serif;
+
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@layer base {
+  html {
+    font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #EDF2F8;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+}
+
+@layer components {
+  /* 软糖新拟态凸起按钮 */
+  .neu-btn {
+    background: linear-gradient(145deg, #f5f8fc, #e5eaf2);
+    box-shadow:
+      8px 8px 16px #d1d9e6,
+      -8px -8px 16px #ffffff;
+    transition: all 0.2s ease;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .neu-btn:hover {
+    box-shadow:
+      12px 12px 24px #d1d9e6,
+      -12px -12px 24px #ffffff;
+    transform: translateY(-2px);
+  }
+
+  .neu-btn:active {
+    background: linear-gradient(145deg, #e5eaf2, #f5f8fc);
+    box-shadow:
+      inset 4px 4px 8px #d1d9e6,
+      inset -4px -4px 8px #ffffff;
+    transform: translateY(0);
+  }
+
+  /* 新拟态卡片 */
+  .neu-card {
+    background: linear-gradient(145deg, #f5f8fc, #e5eaf2);
+    box-shadow:
+      12px 12px 24px #d1d9e6,
+      -12px -12px 24px #ffffff;
+    border-radius: 24px;
+  }
+
+  /* 新拟态内凹容器 */
+  .neu-inset {
+    background: #EDF2F8;
+    box-shadow:
+      inset 6px 6px 12px #d1d9e6,
+      inset -6px -6px 12px #ffffff;
+    border-radius: 20px;
+  }
+}

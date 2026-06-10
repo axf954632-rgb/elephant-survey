@@ -310,6 +310,8 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
         </div>
       </div>
 
+      </div>
+
       {/* 底部按钮 */}
       <div className="px-5 py-8 text-center">
         <button

@@ -1,11 +1,15 @@
 interface ScoreSelectorProps {
   value: number | null;
   onChange: (score: number) => void;
+  scoreDescriptions?: Record<number, string>;
 }
 
-const labels = ['', '很低', '较低', '一般', '较高', '很高'];
+const defaultLabels = ['', '很低', '较低', '一般', '较高', '很高'];
 
-export default function ScoreSelector({ value, onChange }: ScoreSelectorProps) {
+export default function ScoreSelector({ value, onChange, scoreDescriptions }: ScoreSelectorProps) {
+  const currentDescription = value !== null && scoreDescriptions ? scoreDescriptions[value] : null;
+  const currentLabel = value !== null && !scoreDescriptions ? defaultLabels[value] : null;
+
   return (
     <div className="flex flex-col items-center gap-2">
       <div className="flex items-center gap-2 sm:gap-3">
@@ -29,8 +33,8 @@ export default function ScoreSelector({ value, onChange }: ScoreSelectorProps) {
           );
         })}
       </div>
-      <span className="text-xs text-gray-400 h-4">
-        {value !== null ? labels[value] : ''}
+      <span className="text-xs text-elephant-orange font-medium h-4 text-center px-2">
+        {currentDescription || currentLabel || ''}
       </span>
     </div>
   );

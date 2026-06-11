@@ -114,20 +114,14 @@ export default function QuestionPage({
                   <span className="flex-shrink-0 w-7 h-7 rounded-full bg-elephant-blue/10 text-elephant-blue text-sm font-bold flex items-center justify-center">
                     {q.id}
                   </span>
-                  <div className="flex-1 pt-0.5">
-                    <p className="text-sm sm:text-base text-elephant-dark font-medium leading-relaxed">
-                      {q.text}
-                    </p>
-                    {q.note && (
-                      <p className="text-xs text-elephant-orange mt-1.5 leading-relaxed">
-                        {q.note}
-                      </p>
-                    )}
-                  </div>
+                  <p className="text-sm sm:text-base text-elephant-dark font-medium leading-relaxed pt-0.5">
+                    {q.text}
+                  </p>
                 </div>
                 <ScoreSelector
                   value={answers[q.id] ?? null}
                   onChange={(score) => onAnswer(q.id, score)}
+                  scoreDescriptions={q.scoreDescriptions}
                 />
               </div>
             ))}

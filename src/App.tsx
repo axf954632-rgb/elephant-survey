@@ -1,9 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import LandingPage from './components/LandingPage';
+import InstructionPage from './components/InstructionPage';
 import QuestionPage from './components/QuestionPage';
 import ResultPage from './components/ResultPage';
 
-type Page = 'landing' | 'question' | 'result';
+type Page = 'landing' | 'instruction' | 'question' | 'result';
 
 const STORAGE_KEY = 'elephant_survey_v1';
 
@@ -12,7 +13,7 @@ function App() {
   const [currentDimension, setCurrentDimension] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
 
-  // 初始化：检查 localStorage，如果有完成记录直接跳到结果页
+  // 初始化：检查 localStorage
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -23,6 +24,9 @@ function App() {
         }
         if (data.completedAt) {
           setPage('result');
+        } else if (data.currentPage && data.currentPage >= 1) {
+          setCurrentDimension(data.currentPage - 1);
+          setPage('question');
         }
       } catch {
         // ignore
@@ -31,6 +35,10 @@ function App() {
   }, []);
 
   const handleStart = useCallback(() => {
+    setPage('instruction');
+  }, []);
+
+  const handleInstructionStart = useCallback(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
@@ -109,6 +117,7 @@ function App() {
   return (
     <div className="min-h-screen bg-surface">
       {page === 'landing' && <LandingPage onStart={handleStart} />}
+      {page === 'instruction' && <InstructionPage onStart={handleInstructionStart} />}
       {page === 'question' && (
         <QuestionPage
           currentDimensionIndex={currentDimension}

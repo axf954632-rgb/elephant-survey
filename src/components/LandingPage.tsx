@@ -35,8 +35,13 @@ export default function LandingPage({ onStart }: LandingPageProps) {
           {/* 左侧文字区域 */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-lg order-2 md:order-1">
             {/* 主标题 */}
-            <h1 className="text-[1.75rem] sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black leading-[1.15] text-elephant-dark tracking-tight mb-4 md:mb-5">
-              个人能力12维度评估表
+            <h1 className="mb-4 md:mb-5">
+              <span className="block text-[1.75rem] sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black leading-[1.15] text-elephant-blue tracking-tight">
+                个人能力
+              </span>
+              <span className="block text-[1.75rem] sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black leading-[1.15] text-elephant-dark tracking-tight">
+                12维度评估表
+              </span>
             </h1>
             
             {/* 小字 */}

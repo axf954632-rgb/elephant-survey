@@ -33,7 +33,7 @@ export default function ScoreSelector({ value, onChange, scoreDescriptions }: Sc
           );
         })}
       </div>
-      <span className="text-xs text-elephant-orange font-medium h-4 text-center px-2">
+      <span className="text-xs text-gray-500 font-medium h-4 text-center px-2">
         {currentDescription || currentLabel || ''}
       </span>
     </div>

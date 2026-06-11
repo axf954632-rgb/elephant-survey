@@ -97,7 +97,7 @@ export default function QuestionPage({
           {/* 维度标题卡片 */}
           <div className="neu-card p-5 sm:p-6 mb-6 sm:mb-8">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs text-elephant-orange font-semibold px-2 py-0.5 rounded-full bg-elephant-orange/10">
+              <span className="text-xs text-gray-500 font-semibold px-2 py-0.5 rounded-full bg-gray-200">
                 {dimension.category}
               </span>
             </div>

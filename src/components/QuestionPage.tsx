@@ -142,9 +142,9 @@ export default function QuestionPage({
             <div className="min-w-[100px]" />
           )}
 
-          <div className="flex-1 text-center">
-            <span className="text-xs text-gray-400">
-              {allAnswered ? '按 Enter 继续' : '请为每道题评分'}
+          <div className="flex-1 text-center px-2">
+            <span className="text-xs text-gray-400 leading-relaxed">
+              {allAnswered ? '按 Enter 继续' : '本网站旨在帮助用户评估自身能力水平，为用户的能力成长指引方向；请注意由于自我评估的主观性，不同人的评估结果未必具有比较价值，请注意甄别；题目中1为最差，5为最好'}
             </span>
           </div>
 

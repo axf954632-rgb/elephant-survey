@@ -36,14 +36,12 @@ export default function LandingPage({ onStart }: LandingPageProps) {
           <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-lg order-2 md:order-1">
             {/* 主标题 */}
             <h1 className="text-[1.75rem] sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-black leading-[1.15] text-elephant-dark tracking-tight mb-4 md:mb-5">
-              <span className="text-elephant-blue">问问大象</span>
-              <br />
               个人能力12维度评估表
             </h1>
             
             {/* 小字 */}
             <p className="text-sm sm:text-base text-gray-500 font-medium mb-1.5">
-              非著名逃学者：醉某客的最新研究成果
+              创始人：醉客
             </p>
             <p className="text-xs sm:text-sm text-gray-400 mb-8 md:mb-10">
               今夜何人入睡提供技术支持

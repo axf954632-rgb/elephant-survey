@@ -1,4 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useRef, useCallback } from 'react';
+import { toPng } from 'html-to-image';
+import Poster from './Poster';
 import {
   RadarChart,
   PolarGrid,
@@ -15,7 +17,7 @@ interface ResultPageProps {
   onRestart: () => void;
 }
 
-interface DimensionScore {
+export interface DimensionScore {
   name: string;
   category: string;
   score: number;
@@ -133,6 +135,10 @@ function getLevelColor(score: number): string {
 }
 
 export default function ResultPage({ answers, onRestart }: ResultPageProps) {
+  const [showPoster, setShowPoster] = useState(false);
+  const [posterUrl, setPosterUrl] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const posterRef = useRef<HTMLDivElement>(null);
   // 计算各维度得分
   const dimensionScores: DimensionScore[] = useMemo(() => {
     return dimensions.map((dim) => {
@@ -182,6 +188,26 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
     [dimensionScores]
   );
   const maxTotalScore = dimensionScores.length * 15;
+
+  // 生成分享海报
+  const handleGeneratePoster = useCallback(async () => {
+    if (!posterRef.current) return;
+    setIsGenerating(true);
+    try {
+      const dataUrl = await toPng(posterRef.current, {
+        backgroundColor: '#EDF2F8',
+        pixelRatio: 2,
+        cacheBust: true,
+      });
+      setPosterUrl(dataUrl);
+      setShowPoster(true);
+    } catch (err) {
+      console.error('生成海报失败:', err);
+      alert('生成海报失败，请重试');
+    } finally {
+      setIsGenerating(false);
+    }
+  }, []);
 
 
 
@@ -313,14 +339,62 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
       </div>
 
       {/* 底部按钮 */}
-      <div className="px-5 py-8 text-center">
-        <button
-          onClick={onRestart}
-          className="neu-btn px-10 py-4 rounded-2xl text-elephant-dark font-bold text-lg select-none active:scale-[0.98]"
-        >
-          重新测评
-        </button>
+      <div className="px-5 py-8 text-center space-y-4">
+        <div>
+          <button
+            onClick={handleGeneratePoster}
+            disabled={isGenerating}
+            className="neu-btn px-10 py-4 rounded-2xl text-elephant-dark font-bold text-lg select-none active:scale-[0.98] disabled:opacity-50"
+          >
+            {isGenerating ? '生成中...' : '生成分享海报'}
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={onRestart}
+            className="neu-btn px-10 py-4 rounded-2xl text-elephant-dark font-bold text-lg select-none active:scale-[0.98]"
+          >
+            重新测评
+          </button>
+        </div>
       </div>
+
+      {/* 海报生成容器（隐藏在屏幕外） */}
+      <div className="fixed left-[-9999px] top-0">
+        <div ref={posterRef}>
+          <Poster
+            totalScore={totalScore}
+            maxTotalScore={maxTotalScore}
+            dimensionScores={dimensionScores}
+            qrCodeUrl={typeof window !== 'undefined' ? window.location.origin : ''}
+          />
+        </div>
+      </div>
+
+      {/* 海报预览弹窗 */}
+      {showPoster && (
+        <div
+          className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-5 py-10"
+          onClick={() => setShowPoster(false)}
+        >
+          <div className="relative max-w-sm w-full" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={posterUrl}
+              alt="分享海报"
+              className="w-full rounded-2xl shadow-2xl"
+            />
+            <p className="text-white text-xs text-center mt-4">
+              长按图片保存 / 转发到朋友圈
+            </p>
+            <button
+              onClick={() => setShowPoster(false)}
+              className="absolute -top-10 right-0 text-white text-2xl leading-none"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

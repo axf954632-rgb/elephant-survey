@@ -339,24 +339,20 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
       </div>
 
       {/* 底部按钮 */}
-      <div className="px-5 py-8 text-center space-y-4">
-        <div>
-          <button
-            onClick={handleGeneratePoster}
-            disabled={isGenerating}
-            className="neu-btn px-10 py-4 rounded-2xl text-elephant-dark font-bold text-lg select-none active:scale-[0.98] disabled:opacity-50"
-          >
-            {isGenerating ? '生成中...' : '生成分享海报'}
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={onRestart}
-            className="neu-btn px-10 py-4 rounded-2xl text-elephant-dark font-bold text-lg select-none active:scale-[0.98]"
-          >
-            重新测评
-          </button>
-        </div>
+      <div className="px-5 py-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button
+          onClick={handleGeneratePoster}
+          disabled={isGenerating}
+          className="neu-btn w-full sm:w-auto px-10 py-4 rounded-2xl text-elephant-dark font-bold text-lg select-none active:scale-[0.98] disabled:opacity-50 text-center"
+        >
+          {isGenerating ? '生成中...' : '生成分享海报'}
+        </button>
+        <button
+          onClick={onRestart}
+          className="neu-btn w-full sm:w-auto px-10 py-4 rounded-2xl text-elephant-dark font-bold text-lg select-none active:scale-[0.98] text-center"
+        >
+          重新测评
+        </button>
       </div>
 
       {/* 海报生成容器（隐藏在屏幕外） */}
